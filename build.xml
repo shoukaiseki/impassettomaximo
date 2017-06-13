@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="impasset" default="buildkotlin" basedir=".">
+	<typedef resource="org/jetbrains/kotlin/ant/antlib.xml" classpath="lib/kotlin-ant.jar"/>
+
+	<!-- Sets variables which can later be used. -->
+	<!-- The value of a property is accessed via ${} -->
+	<property name="jar_path" location="lib" />
+	<property name="src_dir" location="src" />
+	
+	
+	<property name="build_dir" location="bin" />
+	<!--
+	<property name="maximo_mbo_classes.dir" location="/media/develop/bea10_3/crp/linkmaximo/businessobjects/classes" />
+	-->
+
+	<!-- 定义classpath -->
+	<path id="libs">
+		<pathelement location="lib/*.jar" />
+	</path>
+
+
+
+	<!-- Deletes the existing build, docs and dist directory-->
+	<target name="clean">
+		<delete dir="${build_dir}" />
+	</target>
+
+	<!-- Creates the  build, docs and dist directory-->
+	<target name="makedir">
+		<mkdir dir="${build_dir}" />
+	</target>
+
+
+
+	<target name="buildkotlin" depends="clean, makedir">
+		<delete dir="${build_dir}" failonerror="false"/>
+		<mkdir dir="${build_dir}"/>
+		<javac destdir="${build_dir}" includeAntRuntime="false" srcdir="src">
+			<compilerarg line="-encoding UTF-8 "/>
+				<classpath> 
+					<pathelement path="${build_dir}"/> 
+					<fileset dir="lib/">
+						<include name="**/*.jar"/> 
+					</fileset> 
+					<fileset dir="${jar_path}">
+						<include name="**/*.jar"/> 
+					</fileset> 
+					<fileset dir="${jar_path}">
+					</fileset> 
+				</classpath> 
+			<withKotlin>
+			</withKotlin>
+		</javac>
+		
+	</target>
+
+
+	<!-- 清除WebRoot/WEB-INF/classes目录,用于SVN上传 {{{1 -->
+	<target name="cleanClasses">
+		<delete dir="${build_dir}" />
+	</target>
+
+</project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
